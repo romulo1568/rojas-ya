@@ -1,6 +1,17 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
+export async function OPTIONS() {
+  return NextResponse.json({}, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "https://rojas-ya.vercel.app", // Cambia por tu dominio real
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+    },
+  });
+}
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -243,7 +254,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { message: "Mensaje enviado correctamente" },
-      { status: 200 }
+      {
+        status: 200,
+        headers: {
+          "Access-Control-Allow-Origin": "https://tudominio.com", // Cambia por tu dominio real
+        },
+      }
     );
   } catch (error) {
     console.error("Error al enviar el correo:", error);

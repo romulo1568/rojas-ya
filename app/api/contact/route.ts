@@ -5,9 +5,10 @@ export async function OPTIONS() {
   return NextResponse.json({}, {
     status: 200,
     headers: {
-      "Access-Control-Allow-Origin": "https://rojas-ya.vercel.app", // Cambia por tu dominio real
+      "Access-Control-Allow-Origin": "https://rojas-ya.vercel.app",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
       "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Credentials": "true"
     },
   });
 }
@@ -27,7 +28,9 @@ export async function POST(request: Request) {
 
     // Configurar el transporter de nodemailer
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,   
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
@@ -39,13 +42,13 @@ export async function POST(request: Request) {
       from: process.env.EMAIL_USER,
       to: "romulocalle42@gmail.com",
       subject: `Nuevo mensaje de contacto: ${subject}`,
-      attachments: [
-        {
-          filename: 'rojaslogo.png',
-          path: './public/images/rojaslogosfon.png', // Local path to your image
-          cid: 'rojasya' // Content ID
-        }
-      ],
+      // attachments: [
+      //   {
+      //     filename: 'rojaslogo.png',
+      //     path: './public/images/rojaslogosfon.png', // Local path to your image
+      //     cid: 'rojasya' // Content ID
+      //   }
+      // ],
       html: `
         <!DOCTYPE html>
 <html lang="es">
@@ -192,7 +195,7 @@ export async function POST(request: Request) {
 <body>
   <div class="container">
     <div class="header">
-      <img src="cid:rojasya" alt="Rojas Ya" class="logo">
+      <img src="https://rojas-ya.vercel.app/images/rojaslogosfon.png" alt="Rojas Ya" class="logo">
       <h2>Nuevo Mensaje de Contacto</h2>
     </div>
     <div class="content">
@@ -254,18 +257,27 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       { message: "Mensaje enviado correctamente" },
-      {
-        status: 200,
+      { status: 200,
         headers: {
-          "Access-Control-Allow-Origin": "https://tudominio.com", // Cambia por tu dominio real
-        },
+          "Access-Control-Allow-Origin": "https://rojas-ya.vercel.app",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Credentials": "true"
+        }
       }
     );
   } catch (error) {
     console.error("Error al enviar el correo:", error);
     return NextResponse.json(
       { error: "Error al enviar el mensaje" },
-      { status: 500 }
+      { status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "https://rojas-ya.vercel.app",
+          "Access-Control-Allow-Methods": "POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+          "Access-Control-Allow-Credentials": "true"
+        }
+      }
     );
   }
 }

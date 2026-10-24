@@ -1,53 +1,52 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
-import Image from "next/image";
+import { useEffect, useState } from "react"
+import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 export function Hero() {
-  const [mounted, setMounted] = useState(false);
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
-  if (!mounted) return null;
+  if (!mounted) return null
 
   return (
     <section id="home" className="relative h-screen flex items-center">
       <div className="absolute inset-0 overflow-hidden">
-        {/* Imagen de fondo del supermercado */}
+        {/* Background image - local hero.jpeg */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
         <Image
-          src="/images/hero.jpg"
-          alt="Minimarket Rojas Ya"
+          src="/images/hero.jpeg"
+          alt="Concretos y Asfaltos Cerro Blanco"
           fill
-          className="object-cover"
+          className="object-cover opacity-30 "
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent z-0"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent dark:from-gray-900 dark:via-gray-900/80 dark:to-transparent z-0"></div>
       </div>
 
-      <div className="container mx-auto px-4 z-10">
-        <div className="max-w-3xl">
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-2xl">
           <motion.h1
-            className="text-4xl md:text-6xl font-bold text-gray-900 mb-4"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-gray-900 dark:text-white"
           >
-            Bienvenido a <span className="text-[#d31a2c]">Rojas Ya</span>
+            Concretos y Asfaltos <span className="text-[#e8b643]">Cerro Blanco</span>
           </motion.h1>
-
           <motion.p
-            className="text-xl text-gray-700 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8"
           >
-            Tu nuevo minimarket de confianza con los mejores productos y precios
-            para toda la familia.
+            Soluciones integrales en producción de concreto premezclado, asfalto, agregados y logística de materiales para proyectos de infraestructura y construcción pesada.
           </motion.p>
 
           <motion.div
@@ -58,26 +57,22 @@ export function Hero() {
           >
             <Button
               onClick={() => {
-                document
-                  .getElementById("products")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("areas")?.scrollIntoView({ behavior: "smooth" })
               }}
-              className="bg-[#d31a2c] hover:bg-[#b01522] text-white px-8 py-6 text-lg"
+              className="bg-[#e8b643] hover:bg-[#d4a33c] text-gray-900 px-8 py-6 text-lg font-semibold"
             >
-              Nuestros Productos
+              Nuestros Servicios
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
 
             <Button
               onClick={() => {
-                document
-                  .getElementById("about")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
               }}
               variant="outline"
-              className="border-[#d31a2c] text-[#d31a2c] hover:bg-[#d31a2c]/10 px-8 py-6 text-lg"
+              className="border-[#e8b643] text-[#e8b643] hover:bg-[#e8b643]/10 px-8 py-6 text-lg font-semibold"
             >
-              Conócenos
+              Contáctanos
             </Button>
           </motion.div>
         </div>
@@ -90,8 +85,8 @@ export function Hero() {
           transition={{ duration: 1, delay: 0.8 }}
         >
           <a
-            href="#about"
-            className="flex flex-col items-center text-gray-500 hover:text-[#d31a2c] transition-colors"
+            href="#areas"
+            className="flex flex-col items-center text-gray-500 dark:text-gray-400 hover:text-[#e8b643] transition-colors"
           >
             <span className="text-sm mb-2">Descubre más</span>
             <motion.div
@@ -104,5 +99,5 @@ export function Hero() {
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

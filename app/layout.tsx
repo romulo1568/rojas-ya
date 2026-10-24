@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rojas Ya",
-  description: "Minimarket Rojas Ya",
+  title: "Concretos y Asfaltos Cerro Blanco",
+  description: "Empresa especializada en producción de concreto, asfalto y agregados.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

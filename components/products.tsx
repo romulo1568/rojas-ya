@@ -3,13 +3,10 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Image from "next/image";
 
-// Definir un tipo para las categorías de productos
-type ProductCategory = "abarrotes" | "bebidas" | "limpieza" | "lacteos";
+// Definir tipos para productos de concreto
+type ConcreteType = "convencional" | "estructural" | "autocompactante" | "especial";
 
 export function Products() {
   const ref = useRef(null);
@@ -20,166 +17,110 @@ export function Products() {
     visible: { opacity: 1, y: 0 },
   };
 
-  // Modificar la definición de categories para usar el tipo
   const categories = [
-    { id: "abarrotes" as ProductCategory, name: "Abarrotes" },
-    { id: "bebidas" as ProductCategory, name: "Bebidas" },
-    { id: "limpieza" as ProductCategory, name: "Limpieza" },
-    { id: "lacteos" as ProductCategory, name: "Lácteos y Quesos" },
+    { id: "convencional" as ConcreteType, name: "Concreto Convencional" },
+    { id: "estructural" as ConcreteType, name: "Concreto Estructural" },
+    { id: "autocompactante" as ConcreteType, name: "Autocompactante" },
+    { id: "especial" as ConcreteType, name: "Especiales" },
   ];
 
-  // Modificar la definición de products para usar el tipo
-  const products: Record<
-    ProductCategory,
-    { name: string; price: string; image: string }[]
+  const concreteProducts: Record<
+    ConcreteType,
+    { name: string; description: string; uses: string[] }[]
   > = {
-    abarrotes: [
+    convencional: [
       {
-        name: "Rompe Olla - 1Kg",
-        price: "S/ 5.89",
-        image: "/images/abarrotes1.png",
+        name: "Concreto Convencional f'c 150 kg/cm²",
+        description: "Para estructuras ligeras, pavimentos y obras civiles generales.",
+        uses: ["Zapatas simples", "Pavimentos de bajo tráfico", "Muros de contención"]
       },
       {
-        name: "La Patrona - 750ml",
-        price: "S/ 9.49",
-        image: "/images/abarrotes2.webp",
+        name: "Concreto Convencional f'c 200 kg/cm²",
+        description: "Ideal para viviendas, edificios pequeños y obras residenciales.",
+        uses: ["Viviendas de 1-3 pisos", "Cimentaciones medianas", "Muros estructurales"]
       },
       {
-        name: "Don Maximo Tallarines - 500gr",
-        price: "S/ 3.19",
-        image: "/images/abarrotes3.png",
-      },
-      {
-        name: "La Nasqueña - Filete Caballa",
-        price: "S/ 6.79",
-        image: "/images/abarrotes4.png",
+        name: "Concreto Convencional f'c 250 kg/cm²",
+        description: "Para estructuras medianas y obras comerciales.",
+        uses: ["Edificios de 4-6 pisos", "Muros de carga", "Entrepisos"]
       },
     ],
-    bebidas: [
+    estructural: [
       {
-        name: "Awita - 20L",
-        price: "S/ 10.49",
-        image: "/images/bebidas1.png",
+        name: "Concreto Estructural f'c 300 kg/cm²",
+        description: "Para edificios de mediana altura y puentes pequeños.",
+        uses: ["Edificios de 7-10 pisos", "Puentes pequeños", "Torres"]
       },
       {
-        name: "Pepsi - 2L",
-        price: "S/ 5.89",
-        image: "/images/bebidas2.png",
+        name: "Concreto Estructural f'c 350 kg/cm²",
+        description: "Estructuras de alta resistencia y carga pesada.",
+        uses: ["Edificios de gran altura", "Puentes de mediana envergadura", "Cimentaciones profundas"]
       },
       {
-        name: "Kiwifresh - 500ml",
-        price: "S/ 1.19",
-        image: "/images/bebidas3.png",
-      },
-      {
-        name: "Pilsen - 600ml",
-        price: "S/ 6.49",
-        image: "/images/bebidas4.png",
+        name: "Concreto Estructural f'c 400 kg/cm²",
+        description: "Proyectos de infraestructura y edificios de alta gama.",
+        uses: ["Torres de gran altura", "Puentes grandes", "Instalaciones industriales"]
       },
     ],
-    limpieza: [
+    autocompactante: [
       {
-        name: "Paracas Premium - 4und",
-        price: "S/ 7.89",
-        image: "/images/limpieza1.png",
+        name: "Concreto Autocompactante (SCC)",
+        description: "Fluye por gravedad, llena encofrados sin vibración.",
+        uses: ["Elementos con refuerzo denso", "Encofrados complejos", "Pisos industrializados"]
       },
       {
-        name: "Dkasa Lavanda - 4Lt",
-        price: "S/ 12.89",
-        image: "/images/limpieza2.png",
-      },
-      {
-        name: "Jabón Antibacterial - Leche",
-        price: "S/ 1.49",
-        image: "/images/limpieza3.png",
-      },
-      {
-        name: "Marsella - 2Kg",
-        price: "S/ 12.89",
-        image: "/images/limpieza4.png",
+        name: "SCC de Alta Resistencia",
+        description: "Autocompactante con f'c hasta 500 kg/cm².",
+        uses: ["Columnas de alta resistencia", "Muros estructurales delgados", "Elementos prefabricados"]
       },
     ],
-    lacteos: [
+    especial: [
       {
-        name: "Leche Gloria - 390gr",
-        price: "S/ 2.49",
-        image: "/images/lacteos1.webp",
+        name: "Concreto Impermeable",
+        description: "Resistente a la penetración de agua.",
+        uses: ["Tanques de agua", "Piscinas", "Sótanos y muros de contención"]
       },
       {
-        name: "Danlac Maracumango - 900g",
-        price: "S/ 11.49",
-        image: "/images/lacteos2.png",
+        name: "Concreto Fibra de Acero",
+        description: "Aumenta la resistencia a la tracción y la tenacidad.",
+        uses: ["Pavimentos industriales", "Losas de concreto", "Pistas de aeropuertos"]
       },
       {
-        name: "Manty - 300g",
-        price: "S/ 5.59",
-        image: "/images/lacteos3.png",
+        name: "Concreto Ligero",
+        description: "Bajo peso para reducir carga estructural.",
+        uses: ["Entrepisos", "Muros divisorios", "Elementos prefabricados"]
       },
-      {
-        name: "Mozarella Bonlé - 250gr",
-        price: "S/ 12.49",
-        image: "/images/lacteos4.png",
-      },
-    ],
-  };
-
-  // Modificar la definición de productImages para usar el tipo
-  const productImages: Record<ProductCategory, string[]> = {
-    abarrotes: [
-      "/images/abarrotes1.png",
-      "/images/abarrotes2.webp",
-      "/images/abarrotes3.png",
-      "/images/abarrotes4.png",
-    ],
-    bebidas: [
-      "/images/bebidas1.png",
-      "/images/bebidas2.png",
-      "/images/bebidas3.png",
-      "/images/bebidas4.png",
-    ],
-    limpieza: [
-      "/images/limpieza1.png",
-      "/images/limpieza2.png",
-      "/images/limpieza3.png",
-      "/images/limpieza4.png",
-    ],
-    lacteos: [
-      "/images/lacteos1.webp",
-      "/images/lacteos2.png",
-      "/images/lacteos3.png",
-      "/images/lacteos4.png",
     ],
   };
 
   return (
-    <section id="products" className="py-20 bg-gray-50" ref={ref}>
+    <section id="products" className="py-20 bg-white dark:bg-gray-900" ref={ref}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.h2
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-3xl md:text-4xl font-bold mb-4 dark:text-white"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={fadeIn}
             transition={{ duration: 0.5 }}
           >
-            Nuestros <span className="text-[#d31a2c]">Productos</span>
+            Tipos de <span className="text-[#e8b643]">Concreto</span>
           </motion.h2>
           <motion.div
-            className="w-20 h-1 bg-[#d31a2c] mx-auto mb-6"
+            className="w-20 h-1 bg-[#e8b643] mx-auto mb-6"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={fadeIn}
             transition={{ duration: 0.5, delay: 0.1 }}
           ></motion.div>
           <motion.p
-            className="text-gray-600 max-w-2xl mx-auto"
+            className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg"
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={fadeIn}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Ofrecemos una amplia variedad de productos de calidad para
-            satisfacer todas tus necesidades diarias.
+            Amplia variedad de concretos premezclados para todo tipo de proyectos de construcción.
           </motion.p>
         </div>
 
@@ -189,70 +130,57 @@ export function Products() {
           variants={fadeIn}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <Tabs defaultValue="abarrotes" className="w-full">
-            <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8">
+          <Tabs defaultValue="convencional" className="w-full">
+            <TabsList className="grid grid-cols-2 md:grid-cols-4 mb-8 dark:bg-gray-700">
               {categories.map((category) => (
                 <TabsTrigger
                   key={category.id}
                   value={category.id}
-                  className="data-[state=active]:bg-[#d31a2c] data-[state=active]:text-white"
+                  className="data-[state=active]:bg-[#e8b643] data-[state=active]:text-gray-900"
                 >
                   {category.name}
                 </TabsTrigger>
               ))}
             </TabsList>
 
-            {Object.entries(products).map(
-              ([categoryId, categoryProducts], categoryIndex) => (
+            {Object.entries(concreteProducts).map(
+              ([categoryId, productsList]) => (
                 <TabsContent key={categoryId} value={categoryId}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {categoryProducts.map((product, index) => (
-                      <Card
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {productsList.map((product, index) => (
+                      <motion.div
                         key={index}
-                        className="overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:bg-white cursor-pointer"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl border border-gray-100 dark:border-gray-700 shadow-md hover:shadow-xl transition-all duration-300"
                       >
-                        <div className="aspect-square relative w-full h-64">
-                          <Image
-                            src={
-                              productImages[categoryId as ProductCategory][
-                                index
-                              ] || "/placeholder.svg"
-                            }
-                            alt={product.name}
-                            layout="fill" // Asegura que la imagen se ajuste al contenedor
-                            className="object-contain" // Mantiene la imagen dentro del contenedor sin recortarla
-                          />
+                        <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
+                          {product.name}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 mb-4">
+                          {product.description}
+                        </p>
+                        <div className="space-y-2">
+                          <h4 className="font-semibold text-sm text-gray-800 dark:text-gray-200">
+                            Aplicaciones:
+                          </h4>
+                          <ul className="space-y-1">
+                            {product.uses.map((use, i) => (
+                              <li key={i} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 text-sm">
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#e8b643]"></span>
+                                {use}
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        <CardContent className="p-4">
-                          <h3 className="font-semibold text-lg mb-1">
-                            {product.name}
-                          </h3>
-                          <p className="text-[#d31a2c] font-bold mb-3">
-                            {product.price}
-                          </p>
-                          <Button className="w-full bg-[#d31a2c] hover:bg-[#b01522]">
-                            Ver Detalles
-                          </Button>
-                        </CardContent>
-                      </Card>
+                      </motion.div>
                     ))}
                   </div>
                 </TabsContent>
               )
             )}
           </Tabs>
-        </motion.div>
-
-        <motion.div
-          className="text-center mt-12"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={fadeIn}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <Button className="bg-[#d31a2c] hover:bg-[#b01522] text-white px-8 py-6 text-lg">
-            Ver Todos los Productos
-          </Button>
         </motion.div>
       </div>
     </section>

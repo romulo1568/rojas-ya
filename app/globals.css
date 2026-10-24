@@ -120,3 +120,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Custom Swiper styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #e8b643 !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: #d4a33c !important;
+}
+
+.swiper-pagination-bullet-active {
+  background: #e8b643 !important;
+}
